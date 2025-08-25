@@ -52,7 +52,7 @@ cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl
 ```
 
-## 3. 모니터링 도구 셋업
+## 3. 프로메테우스, 그라파나 설치
 
 ### 1. Helm 설치
 ```bash
@@ -79,4 +79,41 @@ helm install kps prometheus-community/kube-prometheus-stack -n monitoring
 ```bash
 k get po -n monitoring
 ```
+
+## 3. 그라파나 접속
+
+```bash
+k -n monitoring patch svc kps-grafana -p '{"spec":{"type":"LoadBalancer"}}'
+```
+```bash
+k -n monitoring get svc kps-grafana -w
+```
+
+### 그라파나 접속
+
+주소: External-IP
+ID: admin
+PW: prom-operator
+
+## 4. 모니터링 테스트용 파드 배포
+
+```bash
+k run nginx --image=nginx --port=80
+``` 
+``` 
+k expose po nginx --name=nginx-svc --port=80 --target-port80
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
