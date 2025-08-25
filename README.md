@@ -1,4 +1,4 @@
-# Prometheus & Grafana
+<img width="1910" height="910" alt="image" src="https://github.com/user-attachments/assets/57a8e6ee-f5e8-4c1a-89c7-1aad75a8bda8" /># Prometheus & Grafana
 
 Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적인 모니터링 도구 
 
@@ -296,6 +296,7 @@ count(kube_node_status_condition{condition="Ready",status="true"} == 1)
 sum by (namespace, phase) (kube_pod_status_phase)
 ```
 
+<img width="1910" height="910" alt="image" src="https://github.com/user-attachments/assets/80669956-1716-4a71-a600-a07ff4c63884" />
 
 
 
