@@ -43,7 +43,7 @@ EOF
 
 ### 2. kubeconfig 생성
 ```bash
-ncp-iam-authenticator create-kubeconfig --region <region-code> --clusterUuid <cluster-uuid> --output kubeconfig.yaml
+ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid <cluster-uuid> --output kubeconfig.yaml
 ```
 ```bash
 cp kubeconfig.yaml ~/.kube/config
