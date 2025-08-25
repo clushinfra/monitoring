@@ -263,6 +263,38 @@ EOF
 <img width="1498" height="845" alt="image" src="https://github.com/user-attachments/assets/a169af78-66c9-4fad-a5b7-d00e9bcd69cd" />
 
 
+## 대시보드 커스터마이징
+
+https://grafana.com/grafana/dashboards/747-pod-metrics/
+
+### 1. CPU 사용량
+```bash
+100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[$__rate_interval])) * 100)
+```
+
+### 2. Memory 사용량
+```bash
+(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+```
+
+### 3. Disk 사용량
+```bash
+100 - (
+  node_filesystem_avail_bytes{fstype!~"tmpfs|overlay|squashfs",mountpoint!~"/var/lib/docker/.+|/var/lib/containerd/.+"}
+  /
+  node_filesystem_size_bytes{fstype!~"tmpfs|overlay|squashfs",mountpoint!~"/var/lib/docker/.+|/var/lib/containerd/.+"}
+) * 100
+```
+
+### 4. 노드 상태
+```bash
+count(kube_node_status_condition{condition="Ready",status="true"} == 1)
+```
+
+### 5. 파드 상태
+```bash
+sum by (namespace, phase) (kube_pod_status_phase)
+```
 
 
 
