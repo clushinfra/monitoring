@@ -252,6 +252,9 @@ EOF
 ### 2. 팀즈에서 알람 확인 
 <img width="940" height="469" alt="image" src="https://github.com/user-attachments/assets/778cc22b-56bb-4afe-ada9-15e07c63b280" />
 
+### 3. Grafana 모니터링 
+<img width="1498" height="845" alt="image" src="https://github.com/user-attachments/assets/a169af78-66c9-4fad-a5b7-d00e9bcd69cd" />
+
 
 
 
