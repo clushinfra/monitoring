@@ -139,7 +139,39 @@ cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl
 ```
 
-## 3. 프로메테우스, 그라파나 설치
+## 3. 그라파나, 프로메테우스 포트 열기. 
+```
+kubectl get pods
+```
+- 그라파나 pod 이름 복사
+- 프로테우스 pod 이름 복사
+
+- 그라파나 로드밸랜서 등록
+```
+kubectl expose pod 그라파나 pod 이름 \
+  --name=grafana-lb \
+  --namespace=monitoring \
+  --type=LoadBalancer \
+  --port=3000 \
+  --target-port=3000
+```
+- 프로매테우스 로드밸랜서 등록
+```
+kubectl expose pod prometheus-kube-prometheus-stack-prometheus-0 \
+  --name=prometheus-lb \
+  --namespace=monitoring \
+  --type=LoadBalancer \
+  --port=9090 \
+  --target-port=9090
+```
+
+- 아이피 주소 확인
+```
+kubectl get svc -n monitoring
+```
+
+
+## 4. 그라파나 접속
 
 ### 1. Helm 설치
 ```
