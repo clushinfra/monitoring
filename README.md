@@ -141,9 +141,13 @@ alias k=kubectl
 
 ## 3. 그라파나, 프로메테우스 포트 열기. 
 ```
-kubectl get pods
+kubectl get pods -A
 ```
 그라파나, 프로테우스 pod 이름 복사
+
+kube-prometheus-stack-kube-state-metrics
+
+prometheus-kube-prometheus-stack-prometheus
 
 - 그라파나 로드밸랜서 등록
 ```
