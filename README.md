@@ -6,7 +6,7 @@ Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적�
 
 프로메테우스 주요 컴포넌트
 
-<img width="290" height="174" alt="image" src="https://github.com/user-attachments/assets/4b5353c5-16b1-4fb3-ab2b-d8e6bfa1d12e" />
+<img width="580" height="358" alt="image" src="https://github.com/user-attachments/assets/4b5353c5-16b1-4fb3-ab2b-d8e6bfa1d12e" />
 
 1.	Prometheus Server (핵심 엔진) 
 -	메트릭 수집: Exporter나 쿠버네티스 API로부터 메트릭 데이터를 Pull 방식으로 가져옴 
