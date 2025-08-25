@@ -139,20 +139,6 @@ cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl
 ```
 
-## 3. 그라파나, 프로메테우스 포트 열기. 
-- 프로메테우스 포트 9090
-```
-kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
-```
-- 그라파나 포트 3000
-```
-kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
-```
-## 4.접속
-프로메테우스 - http://localhost:9090/ 
-
-그라파나 - http://localhost:3000/
-
 ### 1. Helm 설치
 ```
 curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -178,6 +164,19 @@ helm install kps prometheus-community/kube-prometheus-stack -n monitoring
 ```
 k get po -n monitoring
 ```
+
+- 프로메테우스 포트 9090
+```
+kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
+```
+- 그라파나 포트 3000
+```
+kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
+```
+
+프로메테우스 - http://localhost:9090/ 
+
+그라파나 - http://localhost:3000/
 
 ## 3. 그라파나 접속
 
