@@ -143,8 +143,7 @@ alias k=kubectl
 ```
 kubectl get pods
 ```
-그라파나 pod 이름 복사
-프로테우스 pod 이름 복사
+그라파나, 프로테우스 pod 이름 복사
 
 - 그라파나 로드밸랜서 등록
 ```
