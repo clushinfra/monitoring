@@ -123,7 +123,7 @@ Altering -> Alter rules -> Contact Points -> Create Contact Point -> Integration
 ```
 sum by (namespace, pod) (
   rate(container_cpu_usage_seconds_total{
-    namespace="example",
+    namespace="cpu-burn",
     pod=~"nginx.*",
     image!="",
     container!~"POD"
@@ -140,7 +140,33 @@ when query is above 0.1
 ### 1. 파드 과부하
 
 ```
-k run example --image=busybox -n default -- /bin/sh -c "while true; do
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpu-burn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpu-burn
+  template:
+    metadata:
+      labels:
+        app: cpu-burn
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh", "-c", "while true; do :; done"]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+EOF
 ```
 
 ### 2. 팀즈에서 알람 확인 
