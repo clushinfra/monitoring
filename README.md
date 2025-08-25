@@ -4,11 +4,17 @@ Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적�
 
 ## Prometheus
 
+CNCF(Cloud Native Computing Foundation)에서 관리하는 오픈소스 모니터링 시스템
+
+주요 특징:
+
+- 메트릭 수집 & 저장: 애플리케이션, 노드, 파드에서 CPU·메모리·네트워크 같은 시계열 데이터를 pull 방식으로 수집
+- 알람(Alertmanager 연동): 특정 조건(예: CPU > 80%)일 때 알람을 트리거
+- 서비스 디스커버리: 쿠버네티스와 통합해 자동으로 새 파드·서비스 감지
+
 프로메테우스 주요 컴포넌트
 
 <img width="741" height="437" alt="image" src="https://github.com/user-attachments/assets/96a21b1e-7ba3-4a55-8d5f-9c7ccc3cf155" />
-
-
 
 1.	Prometheus Server (핵심 엔진) 
 -	메트릭 수집: Exporter나 쿠버네티스 API로부터 메트릭 데이터를 Pull 방식으로 가져옴 
@@ -36,9 +42,13 @@ Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적�
 5.	특수 케이스에는 푸시게이트 사용 
 
 ## Grafana
-- Prometheus 데이터를 시각화하여 차트와 데이터로 표현
-- 팀별 맞춤형 대시보드 생성 가능 (개발자용, 운영자용 등)
-- Alertmanager와 연동해 이메일, Slack 알림 발송 
+- 시각화 전용 오픈소스 도구
+  
+주요 특징:
+
+- 프로메테우스(또는 다른 데이터 소스: Loki, InfluxDB 등) 데이터를 기반으로 대시보드 제공
+- 다양한 차트, 패널, 알림 규칙 설정 가능
+- Slack/Teams/Email 같은 외부 알림 연동 지원
 
 주요 컴포넌트:
 
