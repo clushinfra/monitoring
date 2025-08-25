@@ -92,8 +92,8 @@ k -n monitoring get svc kps-grafana -w
 ### 그라파나 접속
 <img width="940" height="106" alt="image" src="https://github.com/user-attachments/assets/c7ee4200-8818-439e-abbb-8c3d50e032fd" />
 
-주소: External-IP
-ID: admin
+주소: External-IP \n
+ID: admin \n
 PW: prom-operator
 
 ## 4. 모니터링 테스트용 파드 배포
