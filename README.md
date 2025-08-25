@@ -140,41 +140,18 @@ alias k=kubectl
 ```
 
 ## 3. 그라파나, 프로메테우스 포트 열기. 
+- 프로메테우스 포트 9090
 ```
-kubectl get pods -A
+kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
 ```
-그라파나, 프로테우스 pod 이름 복사
+- 그라파나 포트 3000
+```
+kubectl --kubeconfig kubeconfig.yaml port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
+```
+## 4.접속
+프로메테우스 - http://localhost:9090/ 
 
-kube-prometheus-stack-kube-state-metrics
-
-prometheus-kube-prometheus-stack-prometheus
-
-- 그라파나 로드밸랜서 등록
-```
-kubectl expose pod 그라파나 pod 이름 \
-  --name=grafana-lb \
-  --namespace=monitoring \
-  --type=LoadBalancer \
-  --port=3000 \
-  --target-port=3000
-```
-- 프로매테우스 로드밸랜서 등록
-```
-kubectl expose pod prometheus-kube-prometheus-stack-prometheus-0 \
-  --name=prometheus-lb \
-  --namespace=monitoring \
-  --type=LoadBalancer \
-  --port=9090 \
-  --target-port=9090
-```
-
-- 아이피 주소 확인
-```
-kubectl get svc -n monitoring
-```
-
-
-## 4. 그라파나 접속
+그라파나 - http://localhost:3000/
 
 ### 1. Helm 설치
 ```
