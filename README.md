@@ -65,7 +65,7 @@ helm version
 ### 2. Kube-prometheus-stack 배포
 
 ```
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
 ```
 helm repo update
