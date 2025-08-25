@@ -55,41 +55,42 @@ alias k=kubectl
 ## 3. 프로메테우스, 그라파나 설치
 
 ### 1. Helm 설치
-```bash
+```
 curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
-```bash
+```
 helm version
 ```
 
 ### 2. Kube-prometheus-stack 배포
 
-```bash
+```
 $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
-```bash
+```
 helm repo update
 ```
-```bash
+```
 k create ns monitoring
 ```
-```bash
+```
 helm install kps prometheus-community/kube-prometheus-stack -n monitoring
 ```
-```bash
+```
 k get po -n monitoring
 ```
 
 ## 3. 그라파나 접속
 
-```bash
+```
 k -n monitoring patch svc kps-grafana -p '{"spec":{"type":"LoadBalancer"}}'
 ```
-```bash
+```
 k -n monitoring get svc kps-grafana -w
 ```
 
 ### 그라파나 접속
+<img width="940" height="106" alt="image" src="https://github.com/user-attachments/assets/c7ee4200-8818-439e-abbb-8c3d50e032fd" />
 
 주소: External-IP
 ID: admin
@@ -97,18 +98,51 @@ PW: prom-operator
 
 ## 4. 모니터링 테스트용 파드 배포
 
-```bash
+```
 k run nginx --image=nginx --port=80
 ``` 
 ``` 
 k expose po nginx --name=nginx-svc --port=80 --target-port80
 ```
 
+### 1. 리소스 사용량 확인
 
+Grafana -> Kubernetes/Compute Resources/ Pod 메뉴에서 nignx 확인
 
+## 모니터링 알람 Teams 연동
 
+### 1. New Team 생성
+팀 만들기 -> ... -> 앱 -> Incoming Webhook 추가 ** 키값 복사 **
 
+### 2. 그라파나 연동
+Altering -> Alter rules -> Contact Points -> Create Contact Point -> Integration -> Microsoft Teams 선택 -> 웹훅 키 붙여넣기
 
+### 3. 알람 룰 세팅
+```
+sum by (namespace, pod) (
+  rate(container_cpu_usage_seconds_total{
+    namespace="example",
+    pod=~"nginx.*",
+    image!="",
+    container!~"POD"
+  }[2m])
+)
+```
+when query is above 0.1 
+
+<img width="940" height="626" alt="image" src="https://github.com/user-attachments/assets/b61d753d-95f6-46ac-aeb3-73fcb72e8520" />
+<img width="942" height="308" alt="image" src="https://github.com/user-attachments/assets/1cb1dbce-b917-49d7-beb5-b83681c790ac" />
+
+## 모니터링 테스트 
+
+### 1. 파드 과부하
+
+```
+k run example --image=busybox -n default -- /bin/sh -c "while true; do
+```
+
+### 2. 팀즈에서 알람 확인 
+<img width="940" height="469" alt="image" src="https://github.com/user-attachments/assets/778cc22b-56bb-4afe-ada9-15e07c63b280" />
 
 
 
