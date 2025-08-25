@@ -5,6 +5,7 @@ Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적�
 ## Prometheus
 
 프로메테우스 주요 컴포넌트
+
 <img width="290" height="174" alt="image" src="https://github.com/user-attachments/assets/4b5353c5-16b1-4fb3-ab2b-d8e6bfa1d12e" />
 
 1.	Prometheus Server (핵심 엔진) 
