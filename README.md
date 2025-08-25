@@ -1,5 +1,32 @@
-# monitoring
+# Prometheus & Grafana
 
+Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적인 모니터링 도구 
+
+## Prometheus
+
+주요 특징:
+- 메트릭 수집 & 저장: 애플리케이션, 노드, 파드에서 CPU·메모리·네트워크 같은 시계열 데이터를 pull 방식으로 수집
+- 알람(Alertmanager 연동): 특정 조건(예: CPU > 80%)일 때 알람을 트리거
+- 서비스 디스커버리: 쿠버네티스와 통합해 자동으로 새 파드·서비스 감지
+
+동작 방식:
+1.	Exporter가 메트릭을 노출
+2.	Prometheus Server가 Pull 방식으로 수집, TSDB에 저장 
+3.	PromQL로 조회 -> 그라파나 같은 시각화 도구와 연동 
+4.	조건 만족 시 Altermanager를 통해 알림 발송
+5.	특수 케이스에는 푸시게이트 사용 
+
+## Grafana
+- Prometheus 데이터를 시각화하여 차트와 데이터로 표현
+- 팀별 맞춤형 대시보드 생성 가능 (개발자용, 운영자용 등)
+- Alertmanager와 연동해 이메일, Slack 알림 발송 
+
+동작 방식: 
+1.	외부 데이터 소스(Prometheus 등)에서 데이터를 가져옴
+2.	Query Engine이 질의 실행
+3.	Dashboard → Panel 형태로 시각화
+4.	필요 시 Alerting 기능으로 알림 발송
+5.	User/Team Management, Plugin System으로 협업과 확장 지원
 
 ## 1. ncp-iam-authenticator 설치
 ### 1) ncp-iam-authenticator 실행 파일 다운로드
