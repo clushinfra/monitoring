@@ -52,4 +52,31 @@ cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl
 ```
 
+## 3. 모니터링 도구 셋업
+
+### 1. Helm 설치
+```bash
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+```bash
+helm version
+```
+
+### 2. Kube-prometheus-stack 배포
+
+```bash
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
+```bash
+helm repo update
+```
+```bash
+k create ns monitoring
+```
+```bash
+helm install kps prometheus-community/kube-prometheus-stack -n monitoring
+```
+```bash
+k get po -n monitoring
+```
 
