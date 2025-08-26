@@ -161,42 +161,55 @@ EOF
 Home > Dashboards > New > New dashboard 
 > Add Visualization
 
-- CPU 사용량 % 
+- CPU 사용량 %
+	- Visualization: Gauge
 ```
 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
 ```
 
 - RAM 사용량 %
+	- Visualization: Gauge
 ```
 (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
 ```
 
-- CPU 사용량 
+- CPU 사용량
+	- Visualization: Stat
+ 	- Unit: cpu
 ```
 avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m]))
 ```
 
 - CPU 총 코어 수
+	- Visualization: Stat
+ 	- Unit: cpu
 ```
 count(node_cpu_seconds_total{mode="system"})
 ```
 
 - RAM 사용량
+	- Visualization: Stat
+ 	- Unit: gibibytes
 ```
 (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024 / 1024
 ```
 
 - RAM 총량
+	- Visualization: Stat
+ 	- Unit: gibibytes
 ```
 node_memory_MemTotal_bytes / 1024 / 1024 / 1024
 ```
 
 - 노드 업타임
+	- Visualization: Stat
+ 	- Unit: seconds (s)
 ```
 node_time_seconds - node_boot_time_seconds
 ```
 
 - 노드 별 Pod 갯수
+	- Visualization: Stat
 ```
 count(kube_pod_info{namespace="gpu"})
 count(kube_pod_info{namespace="service"})
@@ -204,16 +217,19 @@ count(kube_pod_info{namespace="db"})
 ```
 
 - Pod 리스트
+	- Visualization: Table
 ```
 kube_pod_info{namespace=~"gpu|db|service"}
 ```
 
 - CPU 사용량
+	- Visualization: Time series
 ```
 rate(node_cpu_seconds_total[5m])
 ```
 
 - RAM 사용량
+	- Visualization: Time series
 ```
 node_memory_MemTotal_bytes
 ```
