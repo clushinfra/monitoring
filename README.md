@@ -159,7 +159,7 @@ EOF
 
 ### 1. 새로운 대쉬보드 생성
 Home > Dashboards > New > New dashboard 
-+ Add Visualization
+> Add Visualization
 
 - CPU 사용량 % 
 ```
