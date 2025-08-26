@@ -162,25 +162,39 @@ Home > Dashboards > New > New dashboard
 + Add Visualization
 
 - CPU 사용량 % 
-```100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)```
+```
+100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+```
 
 - RAM 사용량 %
-```(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100```
+```
+(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+```
 
 - CPU 사용량 
-```avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m]))```
+```
+avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+```
 
 - CPU 총 코어 수
-```count(node_cpu_seconds_total{mode="system"})```
+```
+count(node_cpu_seconds_total{mode="system"})
+```
 
 - RAM 사용량
-```(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024 / 1024```
+```
+(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024 / 1024
+```
 
 - RAM 총량
-```node_memory_MemTotal_bytes / 1024 / 1024 / 1024```
+```
+node_memory_MemTotal_bytes / 1024 / 1024 / 1024
+```
 
 - 노드 업타임
-```node_time_seconds - node_boot_time_seconds```
+```
+node_time_seconds - node_boot_time_seconds
+```
 
 - 노드 별 Pod 갯수
 ```
@@ -195,10 +209,14 @@ kube_pod_info{namespace=~"gpu|db|service"}
 ```
 
 - CPU 사용량
-```rate(node_cpu_seconds_total[5m])```
+```
+rate(node_cpu_seconds_total[5m])
+```
 
 - RAM 사용량
-```node_memory_MemTotal_bytes```
+```
+node_memory_MemTotal_bytes
+```
 
 
 
