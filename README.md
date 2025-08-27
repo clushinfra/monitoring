@@ -159,7 +159,8 @@ EOF
 
 ### 1. 새로운 대쉬보드 생성
 
-<img width="1905" height="984" alt="image" src="https://github.com/user-attachments/assets/5c942658-86b0-4110-a065-8fa0be830d00" />
+<img width="1905" height="984" alt="image" src="https://github.com/user-attachments/assets/59401d11-6209-4067-ace7-1be2b9d1c5f8" />
+
 Home > Dashboards > New > New dashboard  > + Add Visualization
 
 ### 2. PromQL 쿼리를 이용한 패널 구성
