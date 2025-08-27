@@ -99,6 +99,7 @@ CNCF(Cloud Native Computing Foundation)에서 관리하는 오픈소스 모니�
 	- 채널 이름: grafana alert
 	- 유형 선택: 비공개
 <img width="203" height="309" alt="image" src="https://github.com/user-attachments/assets/545a3339-7a4f-42ed-9a17-88d953e7a2b9" />
+
 - ** 채널 관리 ** 선택
 - 채널 세부 정보 > 커넥터 > imcoming webhook
 	- webhook 이름 설정
