@@ -1,9 +1,6 @@
 ## 쿠버네티스 아키텍쳐
 
-<img width="687" height="474" alt="image" src="https://github.com/user-attachments/assets/b8f1dd73-6cde-4c0b-870d-00734f61a541" />
-
-
-
+<img width="972" height="541" alt="image" src="https://github.com/user-attachments/assets/fcefe845-d6ac-423e-a616-e0a330b288a5" />
 
 
 
