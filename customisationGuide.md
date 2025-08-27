@@ -1,3 +1,12 @@
+## 쿠버네티스 아키텍쳐
+
+<img width="687" height="474" alt="image" src="https://github.com/user-attachments/assets/b8f1dd73-6cde-4c0b-870d-00734f61a541" />
+
+
+
+
+
+
 ## 네임스페이스 상태
 
 ```
