@@ -246,11 +246,7 @@ node_memory_MemTotal_bytes
 
 - 잘 보이는 시각화로 하기
 
-<img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/9db3a3e2-a07d-490d-894a-9c4189ed04c4" />
-
-
-
-
+<img width="2992" height="1384" alt="image" src="https://github.com/user-attachments/assets/2e728daf-b03e-4a9b-aed6-cbe56f77dc7a" />
 
 
 
