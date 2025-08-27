@@ -244,7 +244,7 @@ node_memory_MemTotal_bytes
 - Visualization, Title, Unit 설정
 <img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/0733b572-0feb-4d0f-afb3-0ee5322f521d" />
 
-- 잘 보이는 시각화로 하기
+- 패널 사이즈 커스터마이징
 
 <img width="2992" height="1384" alt="image" src="https://github.com/user-attachments/assets/2e728daf-b03e-4a9b-aed6-cbe56f77dc7a" />
 
