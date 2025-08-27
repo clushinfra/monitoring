@@ -240,11 +240,14 @@ node_memory_MemTotal_bytes
 ### 3. 대쉬보드 커스텀 시각화 
 - dashboard edit > 패널 오른쪽 위 점 3개 > edit
 <img width="391" height="498" alt="스크린샷 2025-08-27 오전 10 19 36" src="https://github.com/user-attachments/assets/a013ef91-8c06-4c9b-95c2-c33e0168e9ea" />
+
 - Visualization 변경
 <img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/0733b572-0feb-4d0f-afb3-0ee5322f521d" />
+
 - Title 수정
 - Unit 설정
 - 잘 보이는 시각화로 하기
+
 <img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/9db3a3e2-a07d-490d-894a-9c4189ed04c4" />
 
 
