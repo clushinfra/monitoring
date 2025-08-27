@@ -245,7 +245,7 @@ node_memory_MemTotal_bytes
 <img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/0733b572-0feb-4d0f-afb3-0ee5322f521d" />
 
 - 패널 사이즈 커스터마이징
-<img width="1904" height="873" alt="image" src="https://github.com/user-attachments/assets/fd038fac-749d-4c39-b5d2-b1c4f827385d" />
+<img width="3830" height="1970" alt="image" src="https://github.com/user-attachments/assets/e5640fee-3124-4663-b8fe-a6a7655f6289" />
 
 
 
