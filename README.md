@@ -1,6 +1,11 @@
-# Prometheus & Grafana
+# Prometheus & Grafana 모니터링 워크샵
 
-Prometheus와 Grafana는 클라우드 네이티브 엔지니어링의 대표적인 모니터링 도구 
+## 목차
+
+1. Prometheus, Grafana 소개
+2. 쉘 스크립트를 이용한 실습용 동적 파드 배포
+3. Microsoft teams 알람 연동
+4. Grafana 대시보드 커스터마이징
 
 ## Prometheus
 
@@ -168,101 +173,3 @@ EOF
 
 ### 3. Grafana 모니터링 
 <img width="1498" height="845" alt="image" src="https://github.com/user-attachments/assets/a169af78-66c9-4fad-a5b7-d00e9bcd69cd" />
-
-
-## 그라파나 대쉬보드 커스터마이징
-
-### 1. 새로운 대쉬보드 생성
-
-<img width="1905" height="984" alt="image" src="https://github.com/user-attachments/assets/59401d11-6209-4067-ace7-1be2b9d1c5f8" />
-
-Home > Dashboards > New > New dashboard  > + Add Visualization
-
-### 2. PromQL 쿼리를 이용한 패널 구성
-
-- CPU 사용량 %
-	- Visualization: Gauge
-```
-100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
-```
-
-- RAM 사용량 %
-	- Visualization: Gauge
-```
-(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
-```
-
-- CPU 사용량
-	- Visualization: Stat
- 	- Unit: cpu
-```
-avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m]))
-```
-
-- CPU 총 코어 수
-	- Visualization: Stat
- 	- Unit: cpu
-```
-count(node_cpu_seconds_total{mode="system"})
-```
-
-- RAM 사용량
-	- Visualization: Stat
- 	- Unit: gibibytes
-```
-(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024 / 1024
-```
-
-- RAM 총량
-	- Visualization: Stat
- 	- Unit: gibibytes
-```
-node_memory_MemTotal_bytes / 1024 / 1024 / 1024
-```
-
-- 노드 업타임
-	- Visualization: Stat
- 	- Unit: seconds (s)
-```
-node_time_seconds - node_boot_time_seconds
-```
-
-- 노드 별 Pod 갯수
-	- Visualization: Stat
-```
-count(kube_pod_info{namespace="gpu"})
-count(kube_pod_info{namespace="service"})
-count(kube_pod_info{namespace="db"})
-```
-
-- Pod 리스트
-	- Visualization: Table
-```
-kube_pod_info{namespace=~"gpu|db|service"}
-```
-
-- CPU 사용량
-	- Visualization: Time series
-```
-rate(node_cpu_seconds_total[5m])
-```
-
-- RAM 사용량
-	- Visualization: Time series
-```
-node_memory_MemTotal_bytes
-```
-
-### 3. 대쉬보드 커스텀 시각화 
-- dashboard edit > 패널 오른쪽 위 점 3개 > edit
-<img width="397" height="415" alt="image" src="https://github.com/user-attachments/assets/a944dfea-4af4-4dea-8047-51cef396ff8f" />
-
-- Visualization, Title, Unit 설정
-<img width="335" height="419" alt="image" src="https://github.com/user-attachments/assets/0733b572-0feb-4d0f-afb3-0ee5322f521d" />
-
-- 패널 사이즈 커스터마이징
-<img width="3830" height="1970" alt="image" src="https://github.com/user-attachments/assets/e5640fee-3124-4663-b8fe-a6a7655f6289" />
-
-
-
-
