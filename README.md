@@ -117,9 +117,7 @@ Altering -> Alter rules -> Contact Points -> Create Contact Point -> Integration
 ```
 sum by (namespace, pod) (
   rate(container_cpu_usage_seconds_total{
-    namespace="cpu-burn",
     pod=~"nginx.*",
-    image!="",
     container!~"POD"
   }[2m])
 )
