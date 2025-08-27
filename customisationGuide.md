@@ -207,3 +207,6 @@ sum by (instance) (
 ```
 Visualization: Time series
 Unit: bytes/sec(IEC)
+
+## 완성된 대시보드
+<img width="741" height="437" alt="image" src="https://github.com/user-attachments/assets/96a21b1e-7ba3-4a55-8d5f-9c7ccc3cf155" />
