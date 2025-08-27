@@ -92,6 +92,7 @@ CNCF(Cloud Native Computing Foundation)에서 관리하는 오픈소스 모니�
 
 ### 1. New Team 생성
 팀 만들기 -> ... -> 앱 -> Incoming Webhook 추가 ** 키값 복사 **
+
 <img width="170" height="260" alt="image" src="https://github.com/user-attachments/assets/7ad0b4fa-4680-4fe0-a729-285c3a53398e" />
 
 - 새 채널 (팀이 존재 하는 경우)/ 새 팀
