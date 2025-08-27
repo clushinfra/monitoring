@@ -158,10 +158,10 @@ EOF
 ## 그라파나 대쉬보드 커스터마이징
 
 ### 1. 새로운 대쉬보드 생성
-**Home > Dashboards > New > New dashboard  > + Add Visualization**
 
 <img width="3830" height="1970" alt="image" src="https://github.com/user-attachments/assets/e5640fee-3124-4663-b8fe-a6a7655f6289" />
 
+**Home > Dashboards > New > New dashboard  > + Add Visualization**
 
 - CPU 사용량 %
 	- Visualization: Gauge
