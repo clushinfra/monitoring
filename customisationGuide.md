@@ -209,4 +209,4 @@ Visualization: Time series
 Unit: bytes/sec(IEC)
 
 ## 완성된 대시보드
-<img width="741" height="437" alt="image" src="https://github.com/user-attachments/assets/96a21b1e-7ba3-4a55-8d5f-9c7ccc3cf155" />
+<img width="1899" height="986" alt="워크숍대시보드" src="https://github.com/user-attachments/assets/94c3bda7-da0a-4c10-adaf-7dfc5e51bae4" />
