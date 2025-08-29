@@ -16,16 +16,16 @@ ncp-iam-authenticator help
 ########################################
 cat <<EOF > ~/.ncloud/configure
 [DEFAULT]
-ncloud_access_key_id = ncp_iam_BGASKR1zphRH1ZfOoKv3
-ncloud_secret_access_key = ncp_iam_BGKSKRZRFULIdD1Qrq15FAW3Rfrx52mHhX
+ncloud_access_key_id = <AccessKey>
+ncloud_secret_access_key = <SecretKey>
 ncloud_api_url = https://ncloud.apigw.gov-ntruss.com
 
 [project]
-ncloud_access_key_id = ncp_iam_BGASKR1zphRH1ZfOoKv3
-ncloud_secret_access_key = ncp_iam_BGKSKRZRFULIdD1Qrq15FAW3Rfrx52mHhX
+ncloud_access_key_id = <AccessKey>
+ncloud_secret_access_key = <SecretKey>
 ncloud_api_url = 542851bb-89bb-4d49-a935-9b3cb7f0fedf
 EOF
-ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid 542851bb-89bb-4d49-a935-9b3cb7f0fedf --output kubeconfig.yaml
+ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid <Cluster UUID> --output kubeconfig.yaml
 cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl 
 k get nodes
