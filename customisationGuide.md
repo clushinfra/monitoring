@@ -235,5 +235,3 @@ Unit: bytes/sec(IEC)
 
 > **Tip** : json 으로 버전 관리하면 팀원과 쉽게 공유가 가능합니다
 
-## 완성된 대시보드
-<img width="1899" height="986" alt="워크숍대시보드" src="https://github.com/user-attachments/assets/94c3bda7-da0a-4c10-adaf-7dfc5e51bae4" />
