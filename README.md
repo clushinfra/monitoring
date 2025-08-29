@@ -1,5 +1,8 @@
 # Prometheus & Grafana 모니터링 워크샵
 
+## NKS 클러스터 접속 정보
+https://drive.google.com/file/d/1eQXRmvxssA_1uyH91OgreHsDxnxs31Zq/view?usp=sharing
+
 ## 목차
 
 1. Prometheus, Grafana 소개
