@@ -16,16 +16,16 @@ ncp-iam-authenticator help
 ########################################
 cat <<EOF > ~/.ncloud/configure
 [DEFAULT]
-ncloud_access_key_id = <Access Key>
-ncloud_secret_access_key = <Secret Key>
+ncloud_access_key_id = ncp_iam_BGASKR1zphRH1ZfOoKv3
+ncloud_secret_access_key = ncp_iam_BGKSKRZRFULIdD1Qrq15FAW3Rfrx52mHhX
 ncloud_api_url = https://ncloud.apigw.gov-ntruss.com
 
 [project]
-ncloud_access_key_id = <Access Key>
-ncloud_secret_access_key = <Secret Key>
-ncloud_api_url = https://ncloud.apigw.gov-ntruss.com
+ncloud_access_key_id = ncp_iam_BGASKR1zphRH1ZfOoKv3
+ncloud_secret_access_key = ncp_iam_BGKSKRZRFULIdD1Qrq15FAW3Rfrx52mHhX
+ncloud_api_url = 542851bb-89bb-4d49-a935-9b3cb7f0fedf
 EOF
-ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid <Cluster UUID> --output kubeconfig.yaml
+ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid 542851bb-89bb-4d49-a935-9b3cb7f0fedf --output kubeconfig.yaml
 cp kubeconfig.yaml ~/.kube/config
 alias k=kubectl 
 k get nodes
@@ -61,7 +61,7 @@ metadata: { name: db }
 YAML
 
 # ============================
-# ResourceQuotas
+# ResourceQuotas (NS당 0.5 vCPU / 1.8GiB / 파드 3개)
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: v1
@@ -69,37 +69,37 @@ kind: ResourceQuota
 metadata: { name: rq-gpu, namespace: gpu }
 spec:
   hard:
-    requests.cpu: "600m"
-    limits.cpu: "1200m"
-    requests.memory: 1Gi
-    limits.memory: 2Gi
-    pods: "10"
+    requests.cpu: "500m"
+    limits.cpu: "600m"
+    requests.memory: "1800Mi"
+    limits.memory: "1900Mi"
+    pods: "3"
 ---
 apiVersion: v1
 kind: ResourceQuota
 metadata: { name: rq-service, namespace: service }
 spec:
   hard:
-    requests.cpu: "300m"
+    requests.cpu: "500m"
     limits.cpu: "600m"
-    requests.memory: 1Gi
-    limits.memory: 2Gi
-    pods: "20"
+    requests.memory: "1800Mi"
+    limits.memory: "1900Mi"
+    pods: "3"
 ---
 apiVersion: v1
 kind: ResourceQuota
 metadata: { name: rq-db, namespace: db }
 spec:
   hard:
-    requests.cpu: "600m"
-    limits.cpu: "1200m"
-    requests.memory: 1Gi
-    limits.memory: 2Gi
-    pods: "10"
+    requests.cpu: "500m"
+    limits.cpu: "600m"
+    requests.memory: "1800Mi"
+    limits.memory: "1900Mi"
+    pods: "3"
 YAML
 
 # ============================
-# LimitRanges
+# LimitRanges (기본/상한 일관화)
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: v1
@@ -108,10 +108,10 @@ metadata: { name: lr-gpu, namespace: gpu }
 spec:
   limits:
     - type: Container
-      defaultRequest: { cpu: "400m", memory: "512Mi" }
-      default:        { cpu: "900m", memory: "1536Mi" }
-      max:            { cpu: "1200m", memory: "2Gi" }
-      min:            { cpu: "100m",  memory: "128Mi" }
+      defaultRequest: { cpu: "160m", memory: "600Mi" }
+      default:        { cpu: "180m", memory: "620Mi" }
+      max:            { cpu: "600m", memory: "650Mi" }
+      min:            { cpu: "100m", memory: "256Mi" }
 ---
 apiVersion: v1
 kind: LimitRange
@@ -119,10 +119,10 @@ metadata: { name: lr-service, namespace: service }
 spec:
   limits:
     - type: Container
-      defaultRequest: { cpu: "100m", memory: "128Mi" }
-      default:        { cpu: "300m", memory: "512Mi" }
-      max:            { cpu: "600m", memory: "1Gi" }
-      min:            { cpu: "50m",  memory: "64Mi" }
+      defaultRequest: { cpu: "160m", memory: "600Mi" }
+      default:        { cpu: "180m", memory: "620Mi" }
+      max:            { cpu: "600m", memory: "650Mi" }
+      min:            { cpu: "100m", memory: "256Mi" }
 ---
 apiVersion: v1
 kind: LimitRange
@@ -130,21 +130,23 @@ metadata: { name: lr-db, namespace: db }
 spec:
   limits:
     - type: Container
-      defaultRequest: { cpu: "400m", memory: "512Mi" }
-      default:        { cpu: "900m", memory: "1536Mi" }
-      max:            { cpu: "1200m", memory: "2Gi" }
-      min:            { cpu: "100m",  memory: "128Mi" }
+      defaultRequest: { cpu: "160m", memory: "600Mi" }
+      default:        { cpu: "180m", memory: "620Mi" }
+      max:            { cpu: "600m", memory: "650Mi" }
+      min:            { cpu: "100m", memory: "256Mi" }
 YAML
 
 # ============================
-# GPU Deployment (CPU + Mem, tmpfs)
+# GPU Deployment (CPU+Mem 부하, tmpfs)
+# - replicas: 3 (NS 파드 3개)
+# - tmpfs 500Mi, dd ≈ 400Mi
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: apps/v1
 kind: Deployment
 metadata: { name: dyn-cpu, namespace: gpu }
 spec:
-  replicas: 1
+  replicas: 3
   selector: { matchLabels: { app: dyn-cpu } }
   template:
     metadata: { labels: { app: dyn-cpu } }
@@ -153,7 +155,7 @@ spec:
         - name: ram
           emptyDir:
             medium: Memory
-            sizeLimit: 2Gi
+            sizeLimit: 500Mi
       containers:
       - name: load
         image: busybox:1.36
@@ -163,7 +165,7 @@ spec:
             set -eu
             while true; do
               yes >/dev/null & P1=$!; yes >/dev/null & P2=$!
-              dd if=/dev/zero of=/ram/memload bs=1M count=1024 2>/dev/null || true
+              dd if=/dev/zero of=/ram/memload bs=1M count=400 2>/dev/null || true
               sleep 15
               rm -f /ram/memload || true
               kill $P1 $P2 2>/dev/null || true
@@ -172,12 +174,13 @@ spec:
         volumeMounts:
           - { name: ram, mountPath: /ram }
         resources:
-          requests: { cpu: "400m", memory: "512Mi" }
-          limits:   { cpu: "900m",  memory: "1536Mi" }
+          requests: { cpu: "160m", memory: "600Mi" }
+          limits:   { cpu: "180m", memory: "620Mi" }
 YAML
 
 # ============================
-# Service Deployment (Dyn Mix)
+# Service Deployment (Dyn Mix: CPU+Mem 혼합)
+# - tmpfs 500Mi, 단계별 150/300/450Mi
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: v1
@@ -189,15 +192,15 @@ data:
     set -eu
     while true; do
       yes >/dev/null & CP=$!
-      dd if=/dev/zero of=/ram/m1.bin bs=1M count=256 2>/dev/null || true
+      dd if=/dev/zero of=/ram/m1.bin bs=1M count=150 2>/dev/null || true
       sleep 10; rm -f /ram/m1.bin; kill $CP 2>/dev/null || true; sleep 3
 
       yes >/dev/null & CP=$!
-      dd if=/dev/zero of=/ram/m2.bin bs=1M count=1024 2>/dev/null || true
+      dd if=/dev/zero of=/ram/m2.bin bs=1M count=300 2>/dev/null || true
       sleep 15; rm -f /ram/m2.bin; kill $CP 2>/dev/null || true; sleep 5
 
       yes >/dev/null & CP=$!
-      dd if=/dev/zero of=/ram/m3.bin bs=1M count=1536 2>/dev/null || true
+      dd if=/dev/zero of=/ram/m3.bin bs=1M count=450 2>/dev/null || true
       sleep 12; rm -f /ram/m3.bin; kill $CP 2>/dev/null || true; sleep 8
     done
 ---
@@ -212,7 +215,7 @@ spec:
     spec:
       volumes:
       - name: ram
-        emptyDir: { medium: Memory, sizeLimit: 2Gi }
+        emptyDir: { medium: Memory, sizeLimit: 500Mi }
       - name: script-src
         configMap: { name: dyn-mix-script, defaultMode: 0644 }
       - name: work
@@ -233,19 +236,21 @@ spec:
         - { name: ram,  mountPath: /ram }
         - { name: work, mountPath: /work }
         resources:
-          requests: { cpu: "100m", memory: "256Mi" }
-          limits:   { cpu: "600m", memory: "1024Mi" }
+          requests: { cpu: "160m", memory: "600Mi" }
+          limits:   { cpu: "180m", memory: "620Mi" }
 YAML
 
 # ============================
-# DB Deployment (IO + Mem, tmpfs)
+# DB Deployment (디스크 I/O + Mem, tmpfs)
+# - replicas: 3 (NS 파드 3개)
+# - tmpfs 500Mi, 메모리 부하 450Mi
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: apps/v1
 kind: Deployment
 metadata: { name: dyn-io, namespace: db }
 spec:
-  replicas: 1
+  replicas: 3
   selector: { matchLabels: { app: dyn-io } }
   template:
     metadata: { labels: { app: dyn-io } }
@@ -254,9 +259,9 @@ spec:
         - name: data
           emptyDir: {}                # 디스크 I/O
         - name: ram
-          emptyDir:                   # tmpfs 메모리
+          emptyDir:
             medium: Memory
-            sizeLimit: 2Gi
+            sizeLimit: 500Mi
       containers:
       - name: load
         image: busybox:1.36
@@ -267,7 +272,7 @@ spec:
             while true; do
               dd if=/dev/zero of=/data/blob bs=8M count=256 2>/dev/null || true
               sync; rm -f /data/blob || true
-              dd if=/dev/zero of=/ram/mem.bin bs=1M count=1536 2>/dev/null || true
+              dd if=/dev/zero of=/ram/mem.bin bs=1M count=450 2>/dev/null || true
               sleep 20
               rm -f /ram/mem.bin || true
               sleep 10
@@ -276,12 +281,12 @@ spec:
           - { name: data, mountPath: /data }
           - { name: ram,  mountPath: /ram }
         resources:
-          requests: { cpu: "400m", memory: "512Mi" }
-          limits:   { cpu: "900m",  memory: "1536Mi" }
+          requests: { cpu: "160m", memory: "600Mi" }
+          limits:   { cpu: "180m", memory: "620Mi" }
 YAML
 
 # ============================
-# Net Server + Client (Service)
+# Net Server + Client (Service) - fixed resources
 # ============================
 kubectl apply -f - <<'YAML'
 apiVersion: apps/v1
@@ -306,8 +311,8 @@ spec:
         ports:
         - { name: http, containerPort: 8080 }
         resources:
-          requests: { cpu: "50m", memory: "64Mi" }
-          limits:   { cpu: "200m", memory: "128Mi" }
+          requests: { cpu: "100m", memory: "256Mi" }
+          limits:   { cpu: "200m", memory: "300Mi" }
 ---
 apiVersion: v1
 kind: Service
@@ -339,6 +344,6 @@ spec:
               sleep 2
             done
         resources:
-          requests: { cpu: "50m", memory: "64Mi" }
-          limits:   { cpu: "200m", memory: "128Mi" }
+          requests: { cpu: "100m", memory: "256Mi" }
+          limits:   { cpu: "200m", memory: "300Mi" }
 YAML
