@@ -1,6 +1,18 @@
-## 쿠버네티스 아키텍쳐
+# 쿠버네티스 아키텍쳐
 
 <img width="972" height="541" alt="image" src="https://github.com/user-attachments/assets/fcefe845-d6ac-423e-a616-e0a330b288a5" />
+
+# 쿠버네티스 클러스터 모니터링 대시보드
+
+<img width="1899" height="986" alt="워크숍대시보드" src="https://github.com/user-attachments/assets/94c3bda7-da0a-4c10-adaf-7dfc5e51bae4" />
+
+> **설명**  
+> Prometheus + Grafana 를 기반으로 한 쿠버네티스 클러스터의 핵심 메트릭을 실시간으로 시각화한 대시보드입니다.  
+> 주요 기능:  
+> - 네임스페이스별 상태(UP/Down)  
+> - CPU / 메모리 사용률(전체 & 네임스페이스 단위)  
+> - 파드 개수, 노드 가동 시간  
+> - 네트워크 트래픽, 디스크 쓰기 속도
 
 
 
@@ -209,6 +221,19 @@ sum by (instance) (
 ```
 Visualization: Time series
 Unit: bytes/sec(IEC)
+
+# 📸 시각화
+
+- Gauge: 전체 CPU/메모리 사용률 (Threshold: 80% → Red, 60% → Orange)  
+- Time series: 네임스페이스 별 리소스 사용량 및 트래픽  
+- Stat: 파드 수, 노드 가동 시간 등 단일 값 표시
+
+# 🔧 커스터마이징
+
+1. `variables` 를 편집해 원하는 네임스페이스/노드를 선택  
+2. Panel 설정에서 색상, 라벨, 알림 조건을 조정  
+
+> **Tip** : json 으로 버전 관리하면 팀원과 쉽게 공유가 가능합니다
 
 ## 완성된 대시보드
 <img width="1899" height="986" alt="워크숍대시보드" src="https://github.com/user-attachments/assets/94c3bda7-da0a-4c10-adaf-7dfc5e51bae4" />
