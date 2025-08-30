@@ -3,6 +3,9 @@
 ## NKS 클러스터 접속 정보
 https://drive.google.com/file/d/1eQXRmvxssA_1uyH91OgreHsDxnxs31Zq/view?usp=sharing
 
+## 액세스 키
+https://docs.google.com/document/d/1LSQGyyxYc7kty1-o7roTFwLCoZtJ43u6OxEN79a0FaI/edit?tab=t.0
+
 ## 목차
 
 1. Prometheus, Grafana 소개
