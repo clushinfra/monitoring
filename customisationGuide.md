@@ -1,5 +1,18 @@
 # 쿠버네티스 아키텍쳐
 
+## 파드 멈춤
+kubectl -n db scale deployment dyn-io --replicas=0
+ 
+# gpu 네임스페이스 파드 중지
+kubectl -n gpu scale deployment dyn-cpu --replicas=0
+ 
+# service 네임스페이스 파드 중지
+kubectl -n service scale deployment dyn-mix --replicas=0
+kubectl -n service scale deployment net-gen --replicas=0
+kubectl -n service scale deployment net-srv --replicas=0
+
+
+
 <img width="972" height="541" alt="image" src="https://github.com/user-attachments/assets/fcefe845-d6ac-423e-a616-e0a330b288a5" />
 
 # 쿠버네티스 클러스터 모니터링 대시보드
