@@ -23,7 +23,7 @@ ncloud_api_url = https://ncloud.apigw.gov-ntruss.com
 [project]
 ncloud_access_key_id = <AccessKey>
 ncloud_secret_access_key = <SecretKey>
-ncloud_api_url = 542851bb-89bb-4d49-a935-9b3cb7f0fedf
+ncloud_api_url = https://ncloud.apigw.gov-ntruss.com
 EOF
 ncp-iam-authenticator create-kubeconfig --region KR --clusterUuid <Cluster UUID> --output kubeconfig.yaml
 cp kubeconfig.yaml ~/.kube/config
